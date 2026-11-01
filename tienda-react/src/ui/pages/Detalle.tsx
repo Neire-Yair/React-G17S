@@ -3,6 +3,8 @@ import type { Producto } from "../../dominio/tipos";
 import EtiquetaStock from "../components/EtiquetaStock";
 import formatearPrecio from "../formato";
 import { useCart } from "../../aplicacion/useCart";
+import { useEffect } from "react";
+import { NOMBRE_TIENDA } from "../../dominio/tipos";
 
 interface Props {
     productos : Producto [];
@@ -11,6 +13,11 @@ export default function Detalle ( {productos} : Props) {
     const {id} = useParams();
     const {agregar} = useCart();
     const producto = productos.find( (p) => p.id === Number(id));
+    useEffect(() => {
+    document.title = producto
+        ? `${producto.nombre} | ${NOMBRE_TIENDA}`
+        : `Producto | ${NOMBRE_TIENDA}`;
+}, [producto]);
     if(!producto) {
         return (
             <div className="p-6">
@@ -25,6 +32,8 @@ export default function Detalle ( {productos} : Props) {
             <div>
                 <p className="text-sm text-gray-500">{producto.marca}</p>
                 <h1 className="text-2xl font-bold">{producto.nombre}</h1>
+                <p className="mt-2 max-w-xl">
+                 {producto.descripcion ?? "Descripción no disponible."}</p>
                 <EtiquetaStock stock={producto.stock}></EtiquetaStock>
                 <p className="mt-2 text-xl">{formatearPrecio(producto.precio * 1.18)} con IGV</p>
                 <button className="mt-4 rounded-full border px-4 py-1"

@@ -10,6 +10,7 @@ interface ProductoAPI {
     thumbnail : string;
     category?: string;
     stock?: number;
+    description?: string;
 }
 
 function mapearProducto (crudo : ProductoAPI) : Producto {
@@ -20,6 +21,7 @@ function mapearProducto (crudo : ProductoAPI) : Producto {
         precio : crudo.price,
         imagen : crudo.thumbnail,
         categoria : crudo.category ?? 'otros',
+        descripcion : crudo.description ?? '',
         stock : crudo.stock ?? 0
     }
 }
