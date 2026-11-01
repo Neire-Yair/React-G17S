@@ -1,7 +1,7 @@
 import Precio from "./Precio";
 import type { Producto } from "../../dominio/tipos";
 import EtiquetaStock from "./EtiquetaStock";
-import { memo } from "react";
+import { memo , useState } from "react";
 
 interface Props {
   producto : Producto;
@@ -10,8 +10,14 @@ interface Props {
 
 function ProductCard({ producto, onAgregar } : Props) {
   const agotado = producto.stock === 0;
+  const [favorito , setFavorito] = useState(false);
   return (
     <article className={`w-64 rounded-xl border p-4 ${agotado && 'opacity-50'}`}>
+      <button type = "button" aria-label={favorito ? `Quitar ${producto.nombre} de favoritos` : `Marcar ${producto.nombre} como favorito`} 
+      aria-pressed={favorito} 
+      onClick={() => setFavorito(!favorito)}>
+        {favorito ? '❤️' : '🤍'}
+      </button>
         <img src={producto.imagen} alt={producto.nombre} className="mb-3 aspect-square object-contain" />
         <p className="text-sm text-gray-500">{producto.marca}</p>
         <h2 className="font-semibold">{producto.nombre}</h2>
