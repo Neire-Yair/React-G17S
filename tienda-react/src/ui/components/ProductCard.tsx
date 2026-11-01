@@ -1,4 +1,4 @@
-import formatearPrecio from "../formato";
+import Precio from "./Precio";
 import type { Producto } from "../../dominio/tipos";
 import EtiquetaStock from "./EtiquetaStock";
 import { memo } from "react";
@@ -19,8 +19,7 @@ function ProductCard({ producto, onAgregar } : Props) {
             producto.stock === 0 ? 'Agotado' : `${producto.stock} disponibles`
         }</p>
         <EtiquetaStock stock={producto.stock}/>
-        <p className="text-sx text-gray-500">{(producto.precio * 1.18).toFixed(2)} con IGV</p>
-        <p className="mt-2">{formatearPrecio(producto.precio)}</p>
+        <Precio precio={producto.precio} />
         <button className="mt-3 rounded-full border px-4 text-sm" disabled={producto.stock===0}
         onClick={() => onAgregar(producto)}
         >

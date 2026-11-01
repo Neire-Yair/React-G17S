@@ -14,7 +14,6 @@ export default function App() {
 
   const [productos, setProductos] = useState<Producto[]>([]);
   const [estado, setEstado] = useState<EstadoCarga>('cargando');
-  const [esRespaldo, setEsRespaldo] = useState(false);
   const [intento, setIntento] = useState(0);
   useEffect(() => {
     const controlador = new AbortController();
@@ -22,8 +21,7 @@ export default function App() {
       try {
         const resultado = await obtenerProductos();
         setProductos(resultado.productos);
-        setEsRespaldo(resultado.esRespaldo);
-        setEstado('listo');
+        setEstado(resultado.esRespaldo ? 'respaldo' : 'listo');
       } catch (error) {
         if(error instanceof DOMException && error.name === 'AbortError') return;
         console.warn('Fallo imprevisto al cargar');
@@ -40,7 +38,7 @@ export default function App() {
         <Layout/>
       }>
         <Route path="/" element = {
-          <Home esRespaldo={esRespaldo} OnReintentar={() => {setIntento(intento + 1); setEstado('cargando')}}
+          <Home OnReintentar={() => {setIntento(intento + 1); setEstado('cargando')}}
           productos={productos} estado={estado}/>
         }
         />

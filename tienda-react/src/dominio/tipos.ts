@@ -9,7 +9,7 @@ export interface Producto {
 }
 export const NOMBRE_TIENDA = 'Tienda Tech';
 export type Categoria = 'todas'| 'laptops'|'audio'|'relojes'|'computadoras';
-export type EstadoCarga = 'cargando' | 'listo' | 'error';
+export type EstadoCarga = 'cargando' | 'listo' | 'error' | 'respaldo';
 
 export interface ItemCarrito  {
     id: number;
