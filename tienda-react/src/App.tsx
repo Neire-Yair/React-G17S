@@ -9,6 +9,7 @@ import NoEncontrada from "./ui/pages/NoEncontrada"
 import Checkout from "./ui/pages/Checkout"
 import Login from "./ui/pages/Login";
 import RutaProtegida from "./ui/components/RutaProtegida";
+import Pedidos from "./ui/pages/Pedidos";
 
 export default function App() {
 
@@ -36,7 +37,9 @@ export default function App() {
     <Routes>
       <Route element = {
         <Layout/>
+        
       }>
+        <Route path="/pedidos" element={<Pedidos />} />
         <Route path="/" element = {
           <Home OnReintentar={() => {setIntento(intento + 1); setEstado('cargando')}}
           productos={productos} estado={estado}/>
