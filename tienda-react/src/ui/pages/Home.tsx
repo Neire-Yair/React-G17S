@@ -22,9 +22,11 @@ export function Home ( {OnReintentar, productos, estado} : Props) {
         (busqueda === '' || p.nombre.toLowerCase().includes(busqueda) || 
         p.marca.toLowerCase().includes(busqueda))
     )), [productos, categoriaActiva, busqueda]);
+    
     useEffect(() => {
-        document.title = `${nombreTienda} - ${visibles.length} resultados`;
-    },[visibles.length]);
+    document.title = `${nombreTienda} | ${categoriaActiva} | ${visibles.length} productos${
+        busqueda ? ` | búsqueda: ${busqueda}` : "" }`;
+     }, [categoriaActiva, busqueda, visibles.length]);
 
     return (
         <>
